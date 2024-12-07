@@ -30,6 +30,7 @@ function overrideHeaders(incomeUrl: URL,hds: Headers) {
 	hds.forEach((v,k)=>headers[k]=v);
 
 	incomeUrl.host = hds.get('host')+"";
+	console.log("Override headers URL:",incomeUrl.toString());
 
 	return Object.fromEntries(
 		Object.entries(headers).map(([key,value]) => [
