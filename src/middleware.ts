@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {overrideFetch} from "@/override/fetch";
-import {outcomeUrl} from "@/vars";
+import {incomeUrl, outcomeUrl} from "@/vars";
 
 
 export async function middleware(request: NextRequest) {
@@ -25,20 +25,21 @@ export async function middleware(request: NextRequest) {
 }
 
 
-function overrideHeaders(incomeUrl: URL,hds: Headers) {
+function overrideHeaders(url: URL,hds: Headers) {
 	let headers: any = {};
 	hds.forEach((v,k)=>headers[k]=v);
 
-	incomeUrl.host = hds.get('host')+"";
-	console.log("Override headers URL:",incomeUrl.toString());
+	url.host = incomeUrl.host;
+	url.port = incomeUrl.port;
+	console.log("Override headers URL:",url.toString());
 
 	return Object.fromEntries(
 		Object.entries(headers).map(([key,value]) => [
 			key,
 			(value+"")
-				.replaceAll(incomeUrl.origin,outcomeUrl.origin)
-				.replaceAll(incomeUrl.host, outcomeUrl.host)
-				.replaceAll(incomeUrl.protocol, outcomeUrl.protocol)
+				.replaceAll(url.origin,outcomeUrl.origin)
+				.replaceAll(url.host, outcomeUrl.host)
+				.replaceAll(url.protocol, outcomeUrl.protocol)
 		])
 	)
 }
