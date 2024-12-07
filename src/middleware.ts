@@ -6,6 +6,8 @@ import {outcomeUrl} from "@/vars";
 export async function middleware(request: NextRequest) {
 	const ignore = ['/local','/api'];
 
+	if (request.headers.get('content-type')?.includes("html")) console.log("INCOME",request.url)
+
 	if (ignore.find(o => request.nextUrl.pathname.startsWith(o))) {
 		console.log("ignored", request.url)
 		return NextResponse.next();
