@@ -31,7 +31,7 @@ function overrideHeaders(url: URL,hds: Headers) {
 
 	url.host = incomeUrl.host;
 	url.port = incomeUrl.port;
-	console.log("Override headers URL:",url.toString());
+	url.protocol = incomeUrl.protocol;
 
 	return Object.fromEntries(
 		Object.entries(headers).map(([key,value]) => [
