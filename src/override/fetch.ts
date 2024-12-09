@@ -18,7 +18,7 @@ export async function overrideFetch(response: Response) {
 async function overrideHtml(res: Response) {
 	let text = await res.text();
 	if (text.includes("<head>")) {
-		const js = `<script src="${incomeUrl.origin}/local/override.js"></script>`;
+		const js = `<script src="${incomeUrl.origin}/local/override.js?${Date.now()}"></script>`;
 		text = text.replace("<head>", `<head>\n${js}`);
 
 		return new Response(text, res);
