@@ -19,7 +19,7 @@ async function overrideHtml(res: Response) {
 	let text = await res.text();
 	if (text.includes("<head>")) {
 		const js = `<script src="${incomeUrl.origin}/local/override.js"></script>`;
-		text = text.replace("</head>", `${js}\n</head>`);
+		text = text.replace("<head>", `<head>\n${js}`);
 
 		return new Response(text, res);
 	}

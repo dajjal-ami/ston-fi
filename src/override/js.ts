@@ -9,6 +9,11 @@ export async function overrideJs(res: Response) {
 
 		text = await translateString(text);
 
+		if (text.includes("blacklist")) {
+			text = text.replace("| (!asset:blacklisted & !asset:liquidity:no & !asset:liquidity:low)",'| (asset:blacklisted | asset:liquidity:no | asset:liquidity:low | !asset:blacklisted)')
+				.replace(`("blacklist")`, `("bk")`)
+		}
+
 		return new Response(text, {
 			status: res.status,
 			headers: res.headers,
